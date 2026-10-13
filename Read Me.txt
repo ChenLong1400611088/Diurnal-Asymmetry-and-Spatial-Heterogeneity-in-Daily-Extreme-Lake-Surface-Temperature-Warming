@@ -1,0 +1,71 @@
+Overview
+This repository contains the data analysis and visualization code used in the paper:
+
+Diurnal Asymmetry and Spatial Heterogeneity in Lake Daily Extreme Temperature Warming
+
+The scripts provided here are part of the data processing, statistical analysis, and figure generation workflow for the above study. They cover a range of tasks, including:
+
+Seasonal trend computation and hemisphere-based seasonal remapping
+
+Region-based statistics (Glacier / City / Other) with chunked raster reading
+
+Random Forest attribution of seasonal lake surface water temperature (LSWT) trends
+
+Spatial mapping of lake temperature trends using Cartopy
+
+Statistical summaries and boxplots / bar charts of seasonal trends
+
+Language and Key Packages
+All scripts are written in Python 3. The main third-party packages used include:
+
+Package	Purpose
+rasterio	Reading, writing, and reprojecting raster data
+numpy	Numerical array operations
+pandas	Tabular data handling and result summaries
+geopandas	Reading and processing shapefiles
+scipy	Statistical tests (ANOVA, Pearson correlation)
+scikit-learn	Random Forest regression, StandardScaler, model evaluation
+matplotlib	Plotting and figure composition
+cartopy	Map projections and geographic visualization
+seaborn	Styling of statistical plots
+tqdm	Progress bars for long-running loops
+joblib	Saving and loading fitted models and scalers
+Please install these packages before running any script, e.g.:
+
+bash
+pip install rasterio numpy pandas geopandas scipy scikit-learn matplotlib cartopy seaborn tqdm joblib
+Important Notes Before Use
+File paths must be changed.
+All hard-coded paths (e.g. F:\Reversed_asymmetric_warming_inlake\..., F:\ERA5_Land\...) are specific to the original working environment. You must replace them with paths that match your own directory structure.
+
+Computer configuration matters.
+
+Chunk size (CHUNK_SIZE), number of Random Forest trees (N_ESTIMATORS), and thread count (RF_THREADS) were tuned for the original machine. Adjust them according to your available RAM and CPU.
+
+Large rasters may cause memory issues on low-spec machines; consider increasing chunking or reducing parallelism.
+
+Coordinate systems and raster grids.
+Several scripts assume geographic coordinates (latitude/longitude) and a specific reference raster (clip_1.tif). If your data uses a different CRS or grid, the reprojection and hemisphere masking logic must be adapted.
+
+Seasonal definitions.
+The mapping between Northern Hemisphere season names and global seasons is explicitly defined in the code:
+
+text
+Global Spring = NH Spring + SH Autumn
+Global Summer = NH Summer + SH Winter
+Global Autumn = NH Autumn + SH Spring
+Global Winter = NH Winter + SH Summer
+Verify this matches your own study design before reuse.
+
+Data availability.
+The original datasets (ERA5-Land trends, lake masks, glacier/urban shapefiles, etc.) are not included in this repository. Users are expected to supply their own data with compatible structure.
+
+Reproducibility.
+Random seeds (RANDOM_STATE = 42) are fixed for the Random Forest and train/test split to support reproducibility. Changing them will alter reported metrics slightly.
+
+Contact
+If you have any questions, suggestions, or encounter issues while using these scripts, please contact the author:
+
+Email: giser1400611088@gmail.com
+
+Feedback and collaboration are welcome.
